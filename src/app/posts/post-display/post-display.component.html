@@ -1,0 +1,45 @@
+<div class="accordion pt-5 pb-4 container shadow" id="accordionExample ">
+  <div class="accordion-item" *ngFor="let diary of diaries; let i=index">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          {{diary.title}}
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <p class="fw-light">{{diary.description}}</p>
+        </div>
+
+        <div class="diary-image d-flex px-4">
+          <img [src]="diary.imagePath" [alt]="diary.title" width="400" height="300" class="mt-2 img-fluid rounded border border-3 border-info border-end shadow-lg">
+        </div>
+        <!-- (userId == post.creator || post.create == undefined) -->
+    <div class="button-box d-flex justify-content-center pb-5 pt-3">
+      <button *ngIf="isTokenized && (userId == diary.creator) " type="button" [routerLink]="['/create', diary._id]" class=" mx-2 px-4 btn btn-outline-info" >Edit</button>
+      <button *ngIf="isTokenized && (userId == diary.creator)  " type="button" class="mx-2 px-4 btn btn-outline-danger" (click)="onDelete(diary._id)">Delete</button>
+
+    </div>
+  </div>
+
+</div>
+
+
+<div *ngIf="diaries.length == 0 && !isLoading">
+  <p class="p-5 fs-2 fw-bold  text-center">There is nothing to show here!</p>
+</div>
+
+<div class="d-flex justify-content-center" *ngIf="isLoading">
+  <button class="btn btn-info rounded-pill px-5 my-4 text-center" type="button" disabled>
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+     Fetching Data...
+  </button>
+
+</div>
+
+
+  </div>
+  <div class="d-flex justify-content-center mt-4 mb-4" *ngIf="!isLoading">
+    <ngb-pagination [collectionSize]="diarySize" [(page)]="page" [pageSize]="3" aria-label="Default pagination" (pageChange)="onPageChange($event)"></ngb-pagination>
+
+  </div>
+

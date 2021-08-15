@@ -1,0 +1,30 @@
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3 shadow-lg">
+    <div class="container d-flex align-items-center flex-row">
+      <div class="d-flex align-items-center">
+        <a class="navbar-brand fs-2 fst-italicfs-2" href="#" [routerLink]="isTokenized? '/create' : '/signup'"><span class="text-info fs-2 fw-bold" >Dear</span> Diary</a>
+
+      </div>
+      <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+      <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <button type="button" routerLink="/display" class="text-white rounded-pill mx-2 btn btn-info px-4 fw-normal shadow">View Diary</button>
+          </li>
+          <li class="nav-item">
+            <button *ngIf="!isTokenized" type="button" routerLink="/login" class="text-white rounded-pill btn  border border-2 border-info btn-outline-info px-4 pb-1 mx-2 fw-normal shadow">Login</button>
+          </li>
+          <li class="nav-item">
+            <button *ngIf="!isTokenized" type="button" routerLink="/signup" class="text-white rounded-pill border border-2 border-info btn btn-outline-info px-4 pb-1 mx-2 fw-normal shadow">Signup</button>
+          </li>
+
+          <li class="nav-item">
+            <button *ngIf="isTokenized" type="button" class="text-white rounded-pill border border-2 border-info btn btn-outline-danger px-4 pb-1 mx-2 fw-normal shadow" (click)="logout()">Logout</button>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>

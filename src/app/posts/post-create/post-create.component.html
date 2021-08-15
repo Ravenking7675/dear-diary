@@ -1,0 +1,83 @@
+<div class="">
+    <div class="card ">
+      <div class="card-body shadow py-5">
+
+        <form *ngIf="isReal" [formGroup]="diaryForm" (ngSubmit)="onSubmit()" >
+
+          <div class="mb-3 p-2">
+            <label for="exampleFormControlInput1" class="form-label">Title</label>
+            <input    type="text" class="p-3 fw-light form-control" id="exampleFormControlInput1" placeholder="Enter an interesting title here." formControlName="title" required >
+            <div *ngIf="title.invalid && (title.dirty || title.touched)"
+            class="alert alert-info">
+
+            <div *ngIf="title.errors?.required">
+              Hook up a title for your diary dude!
+            </div>
+            <div *ngIf="title.errors?.minlength">
+              Title must be atleast 4 character long.
+            </div>
+
+          </div>
+          </div>
+          <div class="mb-3 p-2">
+            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+            <textarea  formControlName="description" class="form-control p-3 fw-light" id="exampleFormControlTextarea1" rows="3" placeholder="Hint: Write about your day." required></textarea>
+
+            <div *ngIf="description.invalid && (description.dirty || description.touched)"
+            class="alert alert-info">
+
+            <div *ngIf="description.errors?.required">
+              Tell us about your day?
+            </div>
+            <div *ngIf="description.errors?.minlength">
+              You can not leave us with this short description buddy!
+            </div>
+
+          </div>
+            </div>
+
+            <div class="mb-3 p-2">
+              <label class="form-label">Add an image (<span class="fw-light">optional</span>)</label>
+              <br>
+              <button  type="button" (click)="addImage.click()" class="px-5 mt-3 btn btn-info text-white rounded fw-normal"> <i class="fa fa-upload "></i>  <span class="px-3">Upload</span> </button>
+              <input type="file" class="visually-hidden" #addImage (change)="imagePreview($event)" accept="image/*">
+            </div>
+            <img formControlName="image" *ngIf="showImage" [src]="filePath" alt="" width="300" height="300" class="mt-2 img-fluid rounded border border-3 border-info border-end shadow-lg">
+
+          <div class="d-flex justify-content-center py-4">
+            <button type="submit" [ngClass]="diaryForm.valid ? '' : 'disabled'" class=" px-4 btn btn-outline-info">Save Diary</button>
+
+          </div>
+
+          <div class="d-flex justify-content-center" *ngIf="isLoading">
+            <button class="btn btn-info rounded-pill px-5 my-4 text-center" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Fetching Data...
+            </button>
+
+          </div>
+
+        </form>
+        <div *ngIf="!isReal && !isLoading">
+          <p class="p-5 fs-2 fw-bold text-center">Oups! Page not found.</p>
+        </div>
+
+        <div class="d-flex justify-content-center" *ngIf="isLoading">
+          <button class="btn btn-info rounded-pill px-5 my-4 text-center" type="button" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Fetching Data...
+          </button>
+
+        </div>
+
+      </div>
+
+
+
+    </div>
+    <div class="alert alert-info" role="alert">
+
+      <p class="text-center fs-6 fw-light lh-base"><span class="fw-normal fs-5 text-info"> Dear</span><span class="fw-normal fs-5"> Diary </span>  is a simple way to keep track of your daily activities. The data will automatically be uploaded to our server. <br>Visit <span class="fw-normal fs-5 text-info"> Dear</span><span class="fw-normal fs-5"> Diary </span> at anytime to see your diaries. Solon!</p>
+    </div>
+
+</div>
